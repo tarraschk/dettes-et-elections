@@ -8,6 +8,12 @@ Etudier le rapport entre santé financière des communes et résultats des élec
 
 Pour cela, il s'agit d'établir une carte du niveau de dette des communes mettant en perspective les résultats des élections locales.
 
+## Démonstration
+
+Une version de démo de l'application est accessible ici :
+
+[https://dettes-communes.herokuapp.com/](https://dettes-communes.herokuapp.com/)
+
 ## Prérequis
 
 - Ruby
