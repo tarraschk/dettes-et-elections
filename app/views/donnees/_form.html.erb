@@ -1,0 +1,257 @@
+<%= form_with(model: donnee, local: true) do |form| %>
+  <% if donnee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(donnee.errors.count, "error") %> prohibited this donnee from being saved:</h2>
+
+      <ul>
+      <% donnee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :annee %>
+    <%= form.number_field :annee %>
+  </div>
+
+  <div class="field">
+    <%= form.label :population %>
+    <%= form.number_field :population %>
+  </div>
+
+  <div class="field">
+    <%= form.label :produits_total %>
+    <%= form.number_field :produits_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prod_impots_locaux %>
+    <%= form.number_field :prod_impots_locaux %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prod_autres_impots_taxes %>
+    <%= form.number_field :prod_autres_impots_taxes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prod_dotation %>
+    <%= form.number_field :prod_dotation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_total %>
+    <%= form.number_field :charges_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_personnel %>
+    <%= form.number_field :charges_personnel %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_achats %>
+    <%= form.number_field :charges_achats %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_financieres %>
+    <%= form.number_field :charges_financieres %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_contingents %>
+    <%= form.number_field :charges_contingents %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charges_subventions %>
+    <%= form.number_field :charges_subventions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :resultat_comptable %>
+    <%= form.number_field :resultat_comptable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_ressources_total %>
+    <%= form.number_field :invest_ressources_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_ress_emprunts %>
+    <%= form.number_field :invest_ress_emprunts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_ress_subventions %>
+    <%= form.number_field :invest_ress_subventions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_ress_fctva %>
+    <%= form.number_field :invest_ress_fctva %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_ress_retours %>
+    <%= form.number_field :invest_ress_retours %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_emplois_total %>
+    <%= form.number_field :invest_emplois_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_empl_equipements %>
+    <%= form.number_field :invest_empl_equipements %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_empl_remboursement_emprunts %>
+    <%= form.number_field :invest_empl_remboursement_emprunts %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_empl_charges %>
+    <%= form.number_field :invest_empl_charges %>
+  </div>
+
+  <div class="field">
+    <%= form.label :invest_empl_immobilisations %>
+    <%= form.number_field :invest_empl_immobilisations %>
+  </div>
+
+  <div class="field">
+    <%= form.label :excedent_brut %>
+    <%= form.number_field :excedent_brut %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cap_autofinancement %>
+    <%= form.number_field :cap_autofinancement %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cap_autofinancement_nette %>
+    <%= form.number_field :cap_autofinancement_nette %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dette_encours_total %>
+    <%= form.number_field :dette_encours_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dette_encours_bancaire %>
+    <%= form.number_field :dette_encours_bancaire %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avance_tresor %>
+    <%= form.number_field :avance_tresor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dette_annuite %>
+    <%= form.number_field :dette_annuite %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fond_de_roulement %>
+    <%= form.number_field :fond_de_roulement %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_habitation %>
+    <%= form.number_field :taxe_habitation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_habitation_base %>
+    <%= form.number_field :taxe_habitation_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_foncier_bati %>
+    <%= form.number_field :taxe_foncier_bati %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_foncier_bati_base %>
+    <%= form.number_field :taxe_foncier_bati_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_non_bati %>
+    <%= form.number_field :taxe_non_bati %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_non_bati_base %>
+    <%= form.number_field :taxe_non_bati_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_add_non_bati %>
+    <%= form.number_field :taxe_add_non_bati %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_add_non_bati_base %>
+    <%= form.number_field :taxe_add_non_bati_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cotis_fonciere_entreprises %>
+    <%= form.number_field :cotis_fonciere_entreprises %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cotis_fonciere_entreprises_base %>
+    <%= form.number_field :cotis_fonciere_entreprises_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cotisation_valeur_ajoutee_entreprises %>
+    <%= form.number_field :cotisation_valeur_ajoutee_entreprises %>
+  </div>
+
+  <div class="field">
+    <%= form.label :impot_forfait_entreprise_reseau %>
+    <%= form.number_field :impot_forfait_entreprise_reseau %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_surf_commerciales %>
+    <%= form.number_field :taxe_surf_commerciales %>
+  </div>
+
+  <div class="field">
+    <%= form.label :compensation_relais_2010 %>
+    <%= form.number_field :compensation_relais_2010 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_professionnelle %>
+    <%= form.number_field :taxe_professionnelle %>
+  </div>
+
+  <div class="field">
+    <%= form.label :taxe_professionnelle_base %>
+    <%= form.number_field :taxe_professionnelle_base %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commune_id %>
+    <%= form.text_field :commune_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

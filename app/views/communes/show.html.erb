@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dep:</strong>
+  <%= @commune.dep %>
+</p>
+
+<p>
+  <strong>Depcom:</strong>
+  <%= @commune.depcom %>
+</p>
+
+<p>
+  <strong>Commune:</strong>
+  <%= @commune.commune %>
+</p>
+
+<p>
+  <strong>Geo centre:</strong>
+  <%= @commune.geo_centre %>
+</p>
+
+<p>
+  <strong>Geo surface:</strong>
+  <%= @commune.geo_surface %>
+</p>
+
+<p>
+  <strong>Geo contour:</strong>
+  <%= @commune.geo_contour %>
+</p>
+
+<%= link_to 'Edit', edit_commune_path(@commune) %> |
+<%= link_to 'Back', communes_path %>

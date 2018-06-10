@@ -1,0 +1,47 @@
+<%= form_with(model: commune, local: true) do |form| %>
+  <% if commune.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(commune.errors.count, "error") %> prohibited this commune from being saved:</h2>
+
+      <ul>
+      <% commune.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :dep %>
+    <%= form.text_field :dep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :depcom %>
+    <%= form.text_field :depcom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commune %>
+    <%= form.text_field :commune %>
+  </div>
+
+  <div class="field">
+    <%= form.label :geo_centre %>
+    <%= form.text_field :geo_centre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :geo_surface %>
+    <%= form.number_field :geo_surface %>
+  </div>
+
+  <div class="field">
+    <%= form.label :geo_contour %>
+    <%= form.text_field :geo_contour %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

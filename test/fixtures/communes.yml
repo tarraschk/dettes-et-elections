@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dep: MyString
+  depcom: MyString
+  commune: MyString
+  geo_centre: MyString
+  geo_surface: 1
+  geo_contour: MyString
+
+two:
+  dep: MyString
+  depcom: MyString
+  commune: MyString
+  geo_centre: MyString
+  geo_surface: 1
+  geo_contour: MyString

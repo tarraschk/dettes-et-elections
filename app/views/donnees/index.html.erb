@@ -1,0 +1,121 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Donnees</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Annee</th>
+      <th>Population</th>
+      <th>Produits total</th>
+      <th>Prod impots locaux</th>
+      <th>Prod autres impots taxes</th>
+      <th>Prod dotation</th>
+      <th>Charges total</th>
+      <th>Charges personnel</th>
+      <th>Charges achats</th>
+      <th>Charges financieres</th>
+      <th>Charges contingents</th>
+      <th>Charges subventions</th>
+      <th>Resultat comptable</th>
+      <th>Invest ressources total</th>
+      <th>Invest ress emprunts</th>
+      <th>Invest ress subventions</th>
+      <th>Invest ress fctva</th>
+      <th>Invest ress retours</th>
+      <th>Invest emplois total</th>
+      <th>Invest empl equipements</th>
+      <th>Invest empl remboursement emprunts</th>
+      <th>Invest empl charges</th>
+      <th>Invest empl immobilisations</th>
+      <th>Excedent brut</th>
+      <th>Cap autofinancement</th>
+      <th>Cap autofinancement nette</th>
+      <th>Dette encours total</th>
+      <th>Dette encours bancaire</th>
+      <th>Avance tresor</th>
+      <th>Dette annuite</th>
+      <th>Fond de roulement</th>
+      <th>Taxe habitation</th>
+      <th>Taxe habitation base</th>
+      <th>Taxe foncier bati</th>
+      <th>Taxe foncier bati base</th>
+      <th>Taxe non bati</th>
+      <th>Taxe non bati base</th>
+      <th>Taxe add non bati</th>
+      <th>Taxe add non bati base</th>
+      <th>Cotis fonciere entreprises</th>
+      <th>Cotis fonciere entreprises base</th>
+      <th>Cotisation valeur ajoutee entreprises</th>
+      <th>Impot forfait entreprise reseau</th>
+      <th>Taxe surf commerciales</th>
+      <th>Compensation relais 2010</th>
+      <th>Taxe professionnelle</th>
+      <th>Taxe professionnelle base</th>
+      <th>Commune</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donnees.each do |donnee| %>
+      <tr>
+        <td><%= donnee.annee %></td>
+        <td><%= donnee.population %></td>
+        <td><%= donnee.produits_total %></td>
+        <td><%= donnee.prod_impots_locaux %></td>
+        <td><%= donnee.prod_autres_impots_taxes %></td>
+        <td><%= donnee.prod_dotation %></td>
+        <td><%= donnee.charges_total %></td>
+        <td><%= donnee.charges_personnel %></td>
+        <td><%= donnee.charges_achats %></td>
+        <td><%= donnee.charges_financieres %></td>
+        <td><%= donnee.charges_contingents %></td>
+        <td><%= donnee.charges_subventions %></td>
+        <td><%= donnee.resultat_comptable %></td>
+        <td><%= donnee.invest_ressources_total %></td>
+        <td><%= donnee.invest_ress_emprunts %></td>
+        <td><%= donnee.invest_ress_subventions %></td>
+        <td><%= donnee.invest_ress_fctva %></td>
+        <td><%= donnee.invest_ress_retours %></td>
+        <td><%= donnee.invest_emplois_total %></td>
+        <td><%= donnee.invest_empl_equipements %></td>
+        <td><%= donnee.invest_empl_remboursement_emprunts %></td>
+        <td><%= donnee.invest_empl_charges %></td>
+        <td><%= donnee.invest_empl_immobilisations %></td>
+        <td><%= donnee.excedent_brut %></td>
+        <td><%= donnee.cap_autofinancement %></td>
+        <td><%= donnee.cap_autofinancement_nette %></td>
+        <td><%= donnee.dette_encours_total %></td>
+        <td><%= donnee.dette_encours_bancaire %></td>
+        <td><%= donnee.avance_tresor %></td>
+        <td><%= donnee.dette_annuite %></td>
+        <td><%= donnee.fond_de_roulement %></td>
+        <td><%= donnee.taxe_habitation %></td>
+        <td><%= donnee.taxe_habitation_base %></td>
+        <td><%= donnee.taxe_foncier_bati %></td>
+        <td><%= donnee.taxe_foncier_bati_base %></td>
+        <td><%= donnee.taxe_non_bati %></td>
+        <td><%= donnee.taxe_non_bati_base %></td>
+        <td><%= donnee.taxe_add_non_bati %></td>
+        <td><%= donnee.taxe_add_non_bati_base %></td>
+        <td><%= donnee.cotis_fonciere_entreprises %></td>
+        <td><%= donnee.cotis_fonciere_entreprises_base %></td>
+        <td><%= donnee.cotisation_valeur_ajoutee_entreprises %></td>
+        <td><%= donnee.impot_forfait_entreprise_reseau %></td>
+        <td><%= donnee.taxe_surf_commerciales %></td>
+        <td><%= donnee.compensation_relais_2010 %></td>
+        <td><%= donnee.taxe_professionnelle %></td>
+        <td><%= donnee.taxe_professionnelle_base %></td>
+        <td><%= donnee.commune %></td>
+        <td><%= link_to 'Show', donnee %></td>
+        <td><%= link_to 'Edit', edit_donnee_path(donnee) %></td>
+        <td><%= link_to 'Destroy', donnee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Donnee', new_donnee_path %>
