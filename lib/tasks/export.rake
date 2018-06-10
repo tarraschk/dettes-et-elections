@@ -27,7 +27,10 @@ namespace :export do
 
   desc "Export communes data for given year"
   task donnees: :environment do
-    donnees = Donnee.where(annee: 2010).joins(:commune).where.not('communes.geo_centre': nil)
+
+    annee = 2016
+
+    donnees = Donnee.where(annee: annee).joins(:commune).where.not('communes.geo_centre': nil)
 
     res = {
         type: 'FeatureCollection',
@@ -39,20 +42,32 @@ namespace :export do
                               geometry: JSON.parse(donnee.commune.geo_centre.gsub('=>', ':')),
                               properties: {
                                   name: donnee.commune.commune,
+                                  excedent: donnee.produits_total.to_f - donnee.charges_total.to_f,
+                                  excedent_pct: (((donnee.produits_total.to_f - donnee.charges_total.to_f) / donnee.produits_total.to_f)*100).round(2),
                                   depcom: donnee.commune.depcom,
                                   dep: donnee.commune.dep,
                                   description: [
                                       '<strong>',
-                                      donnee.commune.commune,
+                                      donnee.commune.commune + ' - ' + annee.to_s,
                                       '</strong>',
                                       '<p>Produits : ',
                                       donnee.produits_total.to_s,
                                       'k€</p>',
+                                      '<p>Charges : ',
+                                      donnee.charges_total.to_s,
+                                      'k€</p>',
                                       '<p>Dette : ',
                                       donnee.dette_encours_total.to_s,
                                       'k€</p>',
-                                      '<p>Ratio : ',
+                                      '<p>Dette %prod : ',
                                       ((donnee.dette_encours_total.to_f / donnee.produits_total.to_f)*100).round(2).to_s,
+                                      '%</p>',
+                                      '<p>Excédent : ',
+                                      (donnee.produits_total - donnee.charges_total).to_s,
+                                      'k€</p>',
+                                      '<p>Excédent %prod : ',
+                                      (((donnee.produits_total.to_f - donnee.charges_total.to_f) / donnee.produits_total.to_f)*100).round(2),
+                                      '%</p>'
                                   ].join(),
                                   dette_pct: ((donnee.dette_encours_total.to_f / donnee.produits_total.to_f)*100).round(2),
                                   total_dette: donnee.dette_encours_total.to_f,

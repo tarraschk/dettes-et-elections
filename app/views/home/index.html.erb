@@ -21,9 +21,21 @@
         "heatmap-weight": [
           "interpolate",
           ["linear"],
-          ["get", "dette_pct"],
-          0, 0,
-          6, 1
+          ["get", "excedent_pct"],
+          -30, 5,
+          -20, 3,
+          -10, 1,
+          0, 0.5,
+          30, 0.1
+        ],
+        // Increase the heatmap color weight weight by zoom level
+        // heatmap-intensity is a multiplier on top of heatmap-weight
+        "heatmap-intensity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0, 1,
+          9, 3
         ],
         // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
         // Begin color ramp at 0-stop with a 0-transparancy color
@@ -45,7 +57,7 @@
           ["linear"],
           ["zoom"],
           0, 2,
-          9, 20
+          9, 6
         ],
         // Transition from heatmap to circle layer by zoom level
         "heatmap-opacity": [
@@ -54,7 +66,7 @@
           ["zoom"],
           7, 1,
           9, 0
-        ],
+        ]
       }
     }, 'waterway-label');
 
@@ -62,29 +74,30 @@
       "id": "communes-point",
       "type": "circle",
       "source": "communes",
-      "minzoom": 7,
+      "minzoom": 8,
       "paint": {
         // Color circle by earthquake magnitude
         "circle-color": [
           "interpolate",
           ["linear"],
-          ["get", "dette_pct"],
-          0, "rgba(33,102,172,0)",
-          50, "rgb(103,169,207)",
-          100, "rgb(209,229,240)",
-          125, "rgb(253,219,199)",
-          150, "rgb(239,138,98)",
-          200, "rgb(178,24,43)"
+          ["get", "excedent_pct"],
+          -30, "rgb(178,24,43)",
+          -20, "rgb(239,138,98)",
+          -10, "rgb(253,219,199)",
+          0, "rgb(209,229,240)",
+          10, "rgb(103,169,207)",
+          20, "rgba(33,102,172,0)"
         ],
         "circle-stroke-color": "white",
         "circle-stroke-width": 1,
+        "circle-radius": 10,
         // Transition from heatmap to circle layer by zoom level
         "circle-opacity": [
           "interpolate",
           ["linear"],
           ["zoom"],
-          7, 0,
-          8, 1
+          6, 0,
+          7, 1
         ]
       }
     }, 'waterway-label');
