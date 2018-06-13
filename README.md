@@ -14,6 +14,10 @@ Une version de démo de l'application est accessible ici :
 
 [https://dettes-communes.herokuapp.com/](https://dettes-communes.herokuapp.com/)
 
+## Contact
+
+Pour me contacter durant le hackathon : maxime.alayeddine[AT-PAS-DESPAM]gmail.com ou 06 25 23 64 81
+
 ## Prérequis
 
 - Ruby
