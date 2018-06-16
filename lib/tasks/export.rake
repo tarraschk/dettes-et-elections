@@ -87,4 +87,44 @@ namespace :export do
 
     puts "Done."
   end
+
+  desc "Export chomage data for given year"
+  task chomage: :environment do
+    annees = [2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+
+    annees.each do |annee|
+      puts "Exporting #{annee.to_s}..."
+
+      donnees = Chomage.where(year: annee).joins(:commune).where.not('communes.geo_contour': nil)
+
+      res = { }
+
+      donnees.each do |donnee|
+        key = donnee.commune.depcom[0..1]
+
+        unless res.has_key?(key)
+          res[key] = {
+              type: 'FeatureCollection',
+              features: []
+          }
+        end
+
+        res[key][:features].push({
+                                type: 'Feature',
+                                geometry: JSON.parse(donnee.commune.geo_contour.gsub('=>', ':')),
+                                properties: {
+                                    name: donnee.commune.commune,
+                                    chomage_pct: donnee.taux
+                                }
+                            })
+      end
+
+
+      puts "Writing files..."
+      res.each do |k,v|
+        puts k
+        File.open('public/chomage/' + annee.to_s + '_' + k.to_s + '.geojson', 'w') { |file| file.write(v.to_json) }
+      end
+    end
+  end
 end

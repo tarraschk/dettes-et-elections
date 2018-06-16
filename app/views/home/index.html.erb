@@ -1,9 +1,14 @@
 <div class="row">
   <div id='control-panel' class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-    <h1>Dettes et communes</h1>
+    <div class="row">
+      <div class="col-xs-6">
+        <img src="./logo.png" class="img-responsive" alt="logo"/>
+      </div>
+    </div>
+    <h1 style="display: none;">Dettes et communes</h1>
     <h2>Hackathon Datafin - 15 et 16 Juin 2018</h2>
 
-    <br/>
+    <h2>Fond de carte :</h2>
 
     <h3>Choisissez une année :</h3>
     <form name="formRangeYear" oninput="rangeYearValue.value = rangeYear.valueAsNumber">
@@ -11,9 +16,70 @@
       <output name="rangeYearValue" for="rangeYear" >2016</output>
     </form>
 
+    <h2>Données de la commune :</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <p id="infocommune">
+            <i>Veuillez d'abord sélectionner une commune à analyser.</i>
+          </p>
+        </div>
+      </div>
+    </div>
 
-    <h3>Sources :</h3>
-    <p></p>
+    <h2>Analyse</h2>
+    <p>Choisissez un département :
+      <select name="analysedep">
+        <option value="--">--</option>
+        <% Commune.select(:depcom).distinct(:depcom).pluck(:depcom).map{ |x| x[0..1] }.sort.uniq.each do |codedep| %>
+          <option value="<%= codedep %>"><%= codedep %></option>
+        <% end %>
+      </select>
+    </p>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <p id="infoanalyse">
+            <i>Veuillez d'abord sélectionner un département à analyser.</i>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
   <div id='map' class="col-xs-12 col-sm-12 col-md-8 col-lg-8"></div>
+</div>
+
+<hr/>
+
+<div class="row">
+  <div class="col-xs-6">
+    <h3>Auteurs :</h3>
+    <div class="row">
+      <div class="col-xs-3">
+        <img src="./florian.jpeg" class="img-responsive img-thumbnail" alt="Florian Wininger" />
+        <p class="text-center"><small>Florian<br/>Wininger</small></p>
+      </div>
+      <div class="col-xs-3">
+        <img src="./maxime.jpeg" class="img-responsive img-thumbnail" alt="Maxime Alay-Eddine" />
+        <p class="text-center"><small>Maxime<br/>Alay-Eddine</small></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-6">
+    <h3>Sources :</h3>
+    <ul>
+      <li>https://api.gouv.fr/api/api-geo.html</li>
+      <li>http://data.cquest.org/dgfip_comptes_collectivites/communes/</li>
+      <li>https://www.impots.gouv.fr/cll/zf1/cll/zf1/accueil/flux.ex?_flowId=accueilcclloc-flow</li>
+      <li>http://ville-data.com/chomage/</li>
+      <li>https://www.data.gouv.fr/fr/posts/les-donnees-des-elections/</li>
+      <li>http://www.regardscitoyens.org/telechargement/donnees/elections/2014_municipales/municipales-2014-r%C3%A9sultats-bureaux_vote-tour2.csv</li>
+    </ul>
+    <h3>Code du projet :</h3>
+    <ul>
+      <li>Licence MIT</li>
+      <li>https://github.com/tarraschk/dettes-et-elections</li>
+    </ul>
+  </div>
 </div>

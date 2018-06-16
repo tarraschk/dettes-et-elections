@@ -125,6 +125,7 @@ loadmap =(annee) ->
     map.on 'click', 'communes-point', (e) ->
       coordinates = e.features[0].geometry.coordinates.slice()
       description = e.features[0].properties.description
+      $('#infocommune').html(description);
       # Ensure that if the map is zoomed out such that multiple
       # copies of the feature are visible, the popup appears
       # over the copy being pointed to.
@@ -143,6 +144,54 @@ loadmap =(annee) ->
       map.getCanvas().style.cursor = ''
       return
 
+    # Source contour
+    map.addSource 'communes-chomage-contour',
+      type: 'geojson'
+      data: '/chomage/00.geojson'
+
+    # Plotting the data
+    map.addLayer {
+      'id': 'communes-chomage'
+      'type': 'fill'
+      'source': 'communes-chomage-contour'
+      'minzoom': 5
+      'paint': {
+        'fill-color': [
+          'interpolate'
+          [ 'linear' ]
+          [
+            'get'
+            'chomage_pct'
+          ]
+          0
+          'rgba(33,102,172,0)'
+          5
+          'rgb(209,229,240)'
+          10
+          'rgb(253,219,199)'
+          15
+          'rgb(239,138,98)'
+          20
+          'rgb(178,24,43)'
+        ],
+        'fill-opacity': 1,
+        'fill-outline-color': 'black'
+      }
+    }, 'building'
+
+    # Adding triggers to data
+    map.on 'click', 'communes-chomage', (e) ->
+      coordinates = e.features[0].geometry.coordinates.slice()
+      description = e.features[0].properties.chomage_pct
+      $('#infoanalyse').html('Chômage ' + description + '%');
+      # Ensure that if the map is zoomed out such that multiple
+      # copies of the feature are visible, the popup appears
+      # over the copy being pointed to.
+      while Math.abs(e.lngLat.lng - (coordinates[0])) > 180
+        coordinates[0] += if e.lngLat.lng > coordinates[0] then 360 else -360
+      (new (mapboxgl.Popup)).setLngLat(coordinates).setHTML(description).addTo map
+      return
+
     #Unblock the UI
     $.unblockUI()
 
@@ -152,6 +201,11 @@ updatemap =(annee) ->
   blockinterface()
   setTimeout($.unblockUI, 5000);
   map.getSource('communes').setData('/donnees_' + annee + '.geojson')
+
+updatechomage =(annee, dep) ->
+  blockinterface()
+  setTimeout($.unblockUI, 5000);
+  map.getSource('communes-chomage-contour').setData('/chomage/' + annee + '_' + dep + '.geojson')
 
 $ ->
   # Mapbox Initialization
@@ -171,6 +225,10 @@ $ ->
 
   $('[name="rangeYear"]').on 'change', ->
     updatemap($('[name=rangeYear]').val())
+    return
+
+  $('[name="analysedep"]').on 'change', ->
+    updatechomage($('[name=rangeYear]').val(), $('[name=analysedep]').val())
     return
 
   return

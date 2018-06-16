@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_03_215944) do
+ActiveRecord::Schema.define(version: 2018_06_16_134317) do
+
+  create_table "chomages", force: :cascade do |t|
+    t.integer "year"
+    t.integer "taux"
+    t.integer "commune_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commune_id"], name: "index_chomages_on_commune_id"
+  end
 
   create_table "communes", force: :cascade do |t|
     t.string "dep"
@@ -22,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_06_03_215944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_active", default: true
+    t.string "parti_2014"
   end
 
   create_table "donnees", force: :cascade do |t|

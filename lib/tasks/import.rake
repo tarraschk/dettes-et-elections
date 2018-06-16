@@ -1,6 +1,7 @@
 require 'csv'
 require 'net/http'
 require 'json'
+require 'nokogiri'
 
 namespace :import do
   desc "Import communes data from DGFip"
@@ -88,6 +89,60 @@ namespace :import do
     end
 
     p "Done."
+  end
+
+  desc "Importing unemployment data"
+  task chomage: :environment do
+    p "Importing..."
+
+    depcoms = Commune.where(is_active: true).select(:depcom).distinct(:depcom).pluck(:depcom).sort[29375..-1]
+
+    Commune.where(depcom: depcoms).each do |commune|
+      depcom = commune.depcom
+
+      url = "https://ville-data.com/chomage/X-00-#{depcom}"
+      uri = URI(url)
+      res = Net::HTTP.get_response(uri)
+      p url
+      if res.code == "200"
+        r = res.body.scan(/boutique\/reuse\/[0-9]+/)
+        if r.length > 0
+          codecommune = r.first.split('/').last
+
+          url = "https://ville-data.com/chomage/boutique/reuse/#{codecommune}"
+          uri = URI(url)
+          res = Net::HTTP.get_response(uri)
+
+          if res.code == "200"
+            r = JSON.parse(res.body)
+
+            resultat = []
+
+            r["rows"].each do |row|
+              data = row["c"]
+              annee = data.first["v"].to_i #annee
+              taux = data.second["v"] #taux
+
+              resultat.push({year: annee, taux: taux.round(0)})
+            end
+
+            commune.chomages = Chomage.create(resultat)
+          else
+            p "PAS REUSSI A RECUPERER DONNEES pour #{depcom} ! - #{codecommune}"
+          end
+        end
+      else
+        p "ERREUR pour #{depcom} !"
+      end
+    end
+  end
+
+  desc "Importing resultats 2014 municipales"
+  task muni2014: :environment do
+    data = CSV.read('vendor/muni2014final.csv')
+    data.each do |x|
+      Commune.find_by(depcom: x[0])&.update(parti_2014: x[2])
+    end
   end
 
 end
