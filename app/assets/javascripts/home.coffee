@@ -1,6 +1,9 @@
+blockinterface =() ->
+  $.blockUI message: '<h1><img src="loading.gif" /> Chargement en cours,<br/>veuillez patienter...</h1>'
+
 loadmap =(annee) ->
   # Block the UI...
-  $.blockUI message: '<h1><img src="loading.gif" /> Chargement en cours,<br/>veuillez patienter...</h1>'
+  blockinterface()
 
   # Load data
   map.on 'load', ->
@@ -145,6 +148,11 @@ loadmap =(annee) ->
 
     return
 
+updatemap =(annee) ->
+  blockinterface()
+  setTimeout($.unblockUI, 5000);
+  map.getSource('communes').setData('/donnees_' + annee + '.geojson')
+
 $ ->
   # Mapbox Initialization
   mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94YWp4IiwiYSI6ImNqaTI3dmo5bDBqMDUzcHBqZmVwdXB2ZGkifQ.gczJjTmhDJeUtt8SEYpDcQ'
@@ -162,8 +170,7 @@ $ ->
   loadmap(annee);
 
   $('[name="rangeYear"]').on 'change', ->
-    console.log 'toto'
-    loadmap($('[name=rangeYear]').val())
+    updatemap($('[name=rangeYear]').val())
     return
 
   return
