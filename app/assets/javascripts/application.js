@@ -13,4 +13,7 @@
 //= require rails-ujs
 //= require jquery
 //= require activestorage
+//= require jquery.blockUI
+//= require bootstrap-sprockets
+//= require home
 //= require_tree .

@@ -31,6 +31,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'pg'
 
+gem 'blockuijs-rails',  :git => 'https://github.com/rusanu/blockuijs-rails.git'
+
+gem 'bootstrap-sass', '~> 3.3.7'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

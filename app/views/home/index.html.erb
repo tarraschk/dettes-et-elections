@@ -1,132 +1,15 @@
-<div id='map' style='width:800px; height: 800px;'></div>
-<script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94YWp4IiwiYSI6ImNqaTI3dmo5bDBqMDUzcHBqZmVwdXB2ZGkifQ.gczJjTmhDJeUtt8SEYpDcQ';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
-    center: [1.800390625, 47.26538735632654],
-    zoom: 5.5
-  });
+<div class="row">
+  <div id='control-panel' class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+    <h1>Dettes et communes</h1>
+    <h2>Hackathon Datafin - 15 et 16 Juin 2018</h2>
 
-  map.on('load', function () {
-    map.addSource('communes', { type: 'geojson', data: '/donnees_2010.geojson' });
+    <br/>
 
-    map.addLayer({
-      "id": "communes-heat",
-      "type": "heatmap",
-      "source": "communes",
-      "maxzoom": 9,
-      "paint": {
-        // Increase the heatmap weight based on frequency and property magnitude
-        "heatmap-weight": [
-          "interpolate",
-          ["linear"],
-          ["get", "excedent_pct"],
-          -30, 5,
-          -20, 3,
-          -10, 1,
-          0, 0.5,
-          30, 0.1
-        ],
-        // Increase the heatmap color weight weight by zoom level
-        // heatmap-intensity is a multiplier on top of heatmap-weight
-        "heatmap-intensity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0, 1,
-          9, 3
-        ],
-        // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-        // Begin color ramp at 0-stop with a 0-transparancy color
-        // to create a blur-like effect.
-        "heatmap-color": [
-          "interpolate",
-          ["linear"],
-          ["heatmap-density"],
-          0, "rgba(33,102,172,0)",
-          0.2, "rgb(103,169,207)",
-          0.4, "rgb(209,229,240)",
-          0.6, "rgb(253,219,199)",
-          0.8, "rgb(239,138,98)",
-          1, "rgb(178,24,43)"
-        ],
-        // Adjust the heatmap radius by zoom level
-        "heatmap-radius": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          0, 2,
-          9, 6
-        ],
-        // Transition from heatmap to circle layer by zoom level
-        "heatmap-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          7, 1,
-          9, 0
-        ]
-      }
-    }, 'waterway-label');
-
-    map.addLayer({
-      "id": "communes-point",
-      "type": "circle",
-      "source": "communes",
-      "minzoom": 8,
-      "paint": {
-        // Color circle by earthquake magnitude
-        "circle-color": [
-          "interpolate",
-          ["linear"],
-          ["get", "excedent_pct"],
-          -30, "rgb(178,24,43)",
-          -20, "rgb(239,138,98)",
-          -10, "rgb(253,219,199)",
-          0, "rgb(209,229,240)",
-          10, "rgb(103,169,207)",
-          20, "rgba(33,102,172,0)"
-        ],
-        "circle-stroke-color": "white",
-        "circle-stroke-width": 1,
-        "circle-radius": 10,
-        // Transition from heatmap to circle layer by zoom level
-        "circle-opacity": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          6, 0,
-          7, 1
-        ]
-      }
-    }, 'waterway-label');
-
-    map.on('click', 'communes-point', function (e) {
-      var coordinates = e.features[0].geometry.coordinates.slice();
-      var description = e.features[0].properties.description;
-
-      // Ensure that if the map is zoomed out such that multiple
-      // copies of the feature are visible, the popup appears
-      // over the copy being pointed to.
-      while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-        coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      }
-
-      new mapboxgl.Popup()
-          .setLngLat(coordinates)
-          .setHTML(description)
-          .addTo(map);
-    });
-
-    // Change the cursor to a pointer when the mouse is over the places layer.
-    map.on('mouseenter', 'communes-point', function () {
-      map.getCanvas().style.cursor = 'pointer';
-    });
-
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'communes-point', function () {
-      map.getCanvas().style.cursor = '';
-    });
-  });
-</script>
+    <h3>Choisissez une année :</h3>
+    <form name="formRangeYear" oninput="rangeYearValue.value = rangeYear.valueAsNumber">
+      <input name="rangeYear" type="range" step="1" min="2000" max="2016" value="2016">
+      <output name="rangeYearValue" for="rangeYear" >2016</output>
+    </form>
+  </div>
+  <div id='map' class="col-xs-12 col-sm-12 col-md-8 col-lg-8"></div>
+</div>
