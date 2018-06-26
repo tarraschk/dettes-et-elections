@@ -127,4 +127,72 @@ namespace :export do
       end
     end
   end
+
+  desc "Export muni2014 data"
+  task muni2014: :environment do
+    puts "Exporting 2014 municipales data..."
+
+    annee = 2014
+
+    donnees = Commune.where(is_active: true).where.not('communes.geo_contour': nil)
+
+    res = { }
+
+    donnees.each do |donnee|
+      key = donnee.depcom[0..1]
+
+      unless res.has_key?(key)
+        res[key] = {
+            type: 'FeatureCollection',
+            features: []
+        }
+      end
+
+      res[key][:features].push({
+                                   type: 'Feature',
+                                   geometry: JSON.parse(donnee.geo_contour.gsub('=>', ':')),
+                                   properties: {
+                                       name: donnee.commune,
+                                       parti: donnee.parti_2014
+                                   }
+                               })
+    end
+
+
+    puts "Writing files..."
+    res.each do |k,v|
+      puts k
+      File.open('public/municipales/' + annee.to_s + '_' + k.to_s + '.geojson', 'w') { |file| file.write(v.to_json) }
+    end
+  end
+
+
+  desc "Export muni2014 data"
+  task municomplet: :environment do
+    puts "Exporting 2014 municipales data..."
+
+    annee = 2014
+
+    donnees = Commune.where(is_active: true).where.not(parti_2014: [nil, "NC"])
+
+    res = {
+        type: 'FeatureCollection',
+        features: []
+    }
+
+    donnees.each do |donnee|
+      res[:features].push({
+                                   type: 'Feature',
+                                   geometry: JSON.parse(donnee.geo_contour.gsub('=>', ':')),
+                                   properties: {
+                                       name: donnee.commune,
+                                       parti: donnee.parti_2014
+                                   }
+                               })
+    end
+
+
+    puts "Writing file..."
+    File.open('public/municipales/00.geojson', 'w') { |file| file.write(res.to_json) }
+  end
 end
